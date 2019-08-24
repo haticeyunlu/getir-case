@@ -53,9 +53,6 @@ Verify the deployment by navigating to your server address in your preferred bro
 * app.port: the port number you want to serve
 * database.uri: connection string of database
 
-### Todos
-
- - Write MORE Tests
 
    [git]: <https://github.com/haticeyunlu/getir-case>
    [node.js]: <http://nodejs.org>
