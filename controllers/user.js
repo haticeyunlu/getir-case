@@ -2,6 +2,24 @@ var moment = require('moment');
 var sessionController = require('./session');
 var errorList = require('../const/messages');
 
+var checkParameters = function(startDate, endDate, minCount, maxCount, callback) {
+
+    if (startDate == '' || endDate == '' || minCount == '' || maxCount == '') {
+        callback(errorList['1']);
+        return;
+    }
+
+    var validStart = moment(startDate, "YYYY-MM-DD").isValid();
+    var validEnd = moment(endDate, "YYYY-MM-DD").isValid();
+
+    if (!validStart || !validEnd) {
+        callback(errorList['4']);
+        return;
+    }
+
+    callback(null, true);
+}
+
 var getRecordsDB = function(connection, startDate, endDate, minCount, maxCount, callback) {
     var db = connection;
 
@@ -74,22 +92,17 @@ var getRecords = function(req, res, next) {
     var maxCount = req.body.maxCount || '';
     var result = res.locals.result;
 
-    if (startDate == '' || endDate == '' || minCount == '' || maxCount == '') {
-        result.code = errorList['1']['code'];
-        result.msg = errorList['1']['en'];
-        sessionController.endSession(req, res, next);
-        return;
-    }
-
-    var validStart = moment(startDate, "YYYY-MM-DD").isValid();
-    var validEnd = moment(endDate, "YYYY-MM-DD").isValid();
-
-    if (!validStart || !validEnd) {
-        result.code = errorList['4']['code'];
-        result.msg = errorList['4']['en'];
-        sessionController.endSession(req, res, next);
-        return;
-    }
+    checkParameters(startDate, endDate, minCount, maxCount, function(err, result) {
+        console.log("checkParameters", err, result)
+        if (err) {
+            console.log("NEDNE BURAYA GIRMIYOR");
+            console.log("checkParameters result.code", err.code);
+            result.code = err.code;
+            result.msg = err.en;
+            sessionController.endSession(req, res, next);
+            return;
+        }
+    });
 
     getRecordsDB(res.locals.connection, startDate, endDate, minCount, maxCount, function(err, data) {
         if (err) {
@@ -104,4 +117,6 @@ var getRecords = function(req, res, next) {
     });
 };
 
+module.exports.checkParameters = checkParameters;
+module.exports.getRecordsDB = getRecordsDB;
 module.exports.getRecords = getRecords;

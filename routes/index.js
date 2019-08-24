@@ -19,7 +19,7 @@ router.notFoundHandler = function(req, res, next) {
 };
 
 router.customErrorHandler = function(err, req, res, next) {
-
+    console.log("Error occured: ", err);
     res.locals.result.code = err.code || errorList['500']['code'];
     res.locals.result.msg = err.en || errorList['500']['en'];
     sessionController.endSession(req, res, next);
