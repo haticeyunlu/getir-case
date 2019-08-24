@@ -13,7 +13,8 @@ var messageList = {
         'en': 'SQL error occured',
         'tr': 'Sql hatası oluştu',
         'code': 3
-    },'4': {
+    },
+    '4': {
         'en': 'Invalid format',
         'tr': 'Geçersiz format',
         'code': 4

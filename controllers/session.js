@@ -31,7 +31,7 @@ var initSession = function(req, res, next) {
 
 
 var endSession = function(req, res, next) {
-    console.log("res.locals.result", res.locals.result);
+    
     if (res.locals.connection) {
         res.locals.connection.close();
     }

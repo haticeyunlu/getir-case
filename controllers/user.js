@@ -92,29 +92,26 @@ var getRecords = function(req, res, next) {
     var maxCount = req.body.maxCount || '';
     var result = res.locals.result;
 
-    checkParameters(startDate, endDate, minCount, maxCount, function(err, result) {
-        console.log("checkParameters", err, result)
+    checkParameters(startDate, endDate, minCount, maxCount, function(err, valid) {
         if (err) {
-            console.log("NEDNE BURAYA GIRMIYOR");
-            console.log("checkParameters result.code", err.code);
             result.code = err.code;
             result.msg = err.en;
-            sessionController.endSession(req, res, next);
+            next();
             return;
+        } else {
+            getRecordsDB(res.locals.connection, startDate, endDate, minCount, maxCount, function(err, data) {
+                if (err) {
+                    result.code = err.code;
+                    result.msg = err.en;
+                } else {
+                    result.code = 0;
+                    result.records = data;
+                }
+                next();
+            });
         }
     });
 
-    getRecordsDB(res.locals.connection, startDate, endDate, minCount, maxCount, function(err, data) {
-        if (err) {
-            result.code = err.code;
-            result.msg = err.en;
-            sessionController.endSession(req, res, next);
-        } else {
-            result.code = 0;
-            result.records = data;
-            next();
-        }
-    });
 };
 
 module.exports.checkParameters = checkParameters;
