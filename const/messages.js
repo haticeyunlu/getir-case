@@ -13,6 +13,10 @@ var messageList = {
         'en': 'SQL error occured',
         'tr': 'Sql hatası oluştu',
         'code': 3
+    },'4': {
+        'en': 'Invalid format',
+        'tr': 'Geçersiz format',
+        'code': 4
     },
     '404': {
         'en': 'Not Found',
@@ -24,7 +28,6 @@ var messageList = {
         'tr': 'Hata oluştu',
         'code': 500
     }
-
 };
 
 module.exports = messageList;
