@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 var expect = require('chai').expect;
 var request = require('request');
 var db = require('../lib/db');
