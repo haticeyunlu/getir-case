@@ -1,12 +1,12 @@
+require('dotenv').config()
 var expect = require('chai').expect;
 var request = require('request');
-var config = require('../config');
 var db = require('../lib/db');
 var record = require('../controllers/record');
 
 describe('Database Connection', function() {
 
-    var uri = config.database.uri;
+    var uri = process.env.DATABASE_URI;
     
     it('Connection string', () => {
         expect(uri).to.be.a('string');
@@ -34,7 +34,7 @@ describe('Check Parameters', function() {
     });
 
     it('Success data fetch', () => {
-        var uri = config.database.uri;
+        var uri = process.env.DATABASE_URI;
         db.getConnection(uri, function(err, connection) {
             let startDate = "2016-07-01";
             let endDate = "2016-07-30";
@@ -47,21 +47,3 @@ describe('Check Parameters', function() {
         });
     });
 });
-
-/*
-describe("Routes", function() {
-    var getRecords = record.getRecords;
-
-    it("should respond", function() {
-        var req, res, spy;
-
-        req = res = {};
-        spy = res.send = sinon.spy();
-
-        getRecords(req, res);
-        expect(spy.calledOnce).to.equal(true);
-    });
-
-});
-
-*/

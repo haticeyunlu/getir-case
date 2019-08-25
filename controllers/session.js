@@ -1,7 +1,6 @@
 var db = require('../lib/db');
-var conf = require('../config');
 var errorList = require('../const/messages');
-var dbUri = conf.database.uri;
+var dbUri = process.env.DATABASE_URI;
 
 var getJsonResponse = function() {
 

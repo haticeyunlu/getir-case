@@ -1,11 +1,10 @@
+require('dotenv').config()
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var router = require('./routes/index');
-var config = require('./config');
 var app = express();
-process.env.PORT = config.port || 3000;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

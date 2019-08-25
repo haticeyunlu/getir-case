@@ -21,8 +21,6 @@ Follow the comments in the below for installation.
 $ git clone https://github.com/haticeyunlu/getir-case.git
 $ cd getir-case
 $ npm install -d
-$ cp config/config_template.js config/index.js
-$ vim config/index.js
 $ npm start
 ```
 
@@ -32,8 +30,6 @@ For production environments...
 $ git clone https://github.com/haticeyunlu/getir-case.git
 $ cd getir-case
 $ npm install --production
-$ cp config/config_template.js config/index.js
-$ vim config/index.js
 $ npm start
 ```
 
@@ -50,8 +46,8 @@ Verify the deployment by navigating to your server address in your preferred bro
 ```
 ### Configuration
 
-* app.port: the port number you want to serve
-* database.uri: connection string of database
+* APP_PORT: the port number you want to serve
+* DATABASE_URI: connection string of database
 
 
 ### Request (as cURL)
