@@ -54,6 +54,20 @@ Verify the deployment by navigating to your server address in your preferred bro
 * database.uri: connection string of database
 
 
+### Request (as cURL)
+```bash
+curl -X POST \
+  http://host:port/api/record \
+  -H 'Content-Type: application/json' \
+  -d '{
+	"startDate":"2016-07-01",
+	"endDate":"2016-07-10",
+	"minCount":1000,
+	"maxCount":1500
+	}'
+```
+
+
    [git]: <https://github.com/haticeyunlu/getir-case>
    [node.js]: <http://nodejs.org>
    [express]: <http://expressjs.com>

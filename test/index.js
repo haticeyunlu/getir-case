@@ -2,15 +2,16 @@ var expect = require('chai').expect;
 var request = require('request');
 var config = require('../config');
 var db = require('../lib/db');
-var user = require('../controllers/user');
+var record = require('../controllers/record');
 
 describe('Database Connection', function() {
+
     var uri = config.database.uri;
+    
     it('Connection string', () => {
-        db.getConnection(uri, function(err, connection) {
-            expect(connection).to.have.property('topology');
-        });
+        expect(uri).to.be.a('string');
     });
+
     it('Success db connection', () => {
         db.getConnection(uri, function(err, connection) {
             expect(connection).to.have.property('topology');
@@ -19,7 +20,7 @@ describe('Database Connection', function() {
 });
 
 
-describe('Get Records', function() {
+describe('Check Parameters', function() {
 
     it('Unsupported date format', () => {
         let startDate = "2016-37-01";
@@ -27,7 +28,7 @@ describe('Get Records', function() {
         let minCount = 1000;
         let maxCount = 1500;
 
-        user.checkParameters(startDate, endDate, minCount, maxCount, function(err, data) {
+        record.checkParameters(startDate, endDate, minCount, maxCount, function(err, data) {
             expect(err.code).to.equal(4);
         });
     });
@@ -40,10 +41,27 @@ describe('Get Records', function() {
             let minCount = 1000;
             let maxCount = 1500;
 
-            user.getRecordsDB(connection, startDate, endDate, minCount, maxCount, function(err, data) {
-                //console.log("data", data);
+            record.getRecordsDB(connection, startDate, endDate, minCount, maxCount, function(err, data) {
                 expect(data).to.be.an('array');
             });
         });
     });
 });
+
+/*
+describe("Routes", function() {
+    var getRecords = record.getRecords;
+
+    it("should respond", function() {
+        var req, res, spy;
+
+        req = res = {};
+        spy = res.send = sinon.spy();
+
+        getRecords(req, res);
+        expect(spy.calledOnce).to.equal(true);
+    });
+
+});
+
+*/

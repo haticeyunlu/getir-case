@@ -28,6 +28,9 @@ var getRecordsDB = function(connection, startDate, endDate, minCount, maxCount, 
         return;
     }
 
+    // Find records between startDate ve endDate. Deconstructs counts array for each element. 
+    // Aggregated sum of counts and find records between minCount and maxCount
+    
     var query = [{
             $match: {
                 createdAt: {

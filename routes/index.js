@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var sessionController = require('../controllers/session');
-var userController = require('../controllers/user');
+var recordController = require('../controllers/record');
 var errorList = require('../const/messages');
 
-router.route('/api/user')
+router.route('/api/record')
     .post(sessionController.initSession,
-        userController.getRecords,
+        recordController.getRecords,
         sessionController.endSession);
 
 router.notFoundHandler = function(req, res, next) {
